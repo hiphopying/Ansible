@@ -1,0 +1,19 @@
+[lab4]
+10.103.117.61
+10.103.117.78
+10.228.183.60
+[lab4:vars]
+labstr = "04"
+
+
+[lab2]
+[lab2:vars]
+labstr = "02"
+
+[windows]
+10.228.104.186
+[windows:vars] 
+asible_ssh_user = "root"
+ansible_ssh_password = "#1Danger0us"
+ansible_ssh_port = 5985
+ansible_connection = winrm

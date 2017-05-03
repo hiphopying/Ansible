@@ -1,0 +1,17 @@
+---
+- hosts: lab4
+  remote_user: root
+  gather_facts: no
+  vars:
+          ipocts: "{{inventory_hostname|ipsplit}}"
+  tasks:
+          - name: Update hostname
+            hostname: 
+                    name: "E2E-{{labstr}}-{{ipocts[2]}}-{{ipocts[3]}}"
+
+- hosts: windows
+  gather_facts: no
+  remote_user: root
+  tasks:
+          - name: ping
+            win_ping: 
