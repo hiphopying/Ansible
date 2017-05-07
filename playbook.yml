@@ -5,13 +5,21 @@
   vars:
           ipocts: "{{inventory_hostname|ipsplit}}"
   tasks:
-          - name: Update hostname
-            hostname: 
-                    name: "E2E-{{labstr}}-{{ipocts[2]}}-{{ipocts[3]}}"
+          #          - name: Obtain OS family
+          - name: Validate esxcli command 
+            stat: path=/bin/esxcli
+            register: st 
+          - name: Update Linux and Solaris hostname
+            command: hostname "E2E-{{labstr}}-{{ipocts[2]}}{{ipocts[3]}}"
+            when: st.stat.exists == false
+          - name: Update Vmware hostname
+            command: esxcli system hostname set --host="E2E-{{labstr}}-{{ipocts[2]}}{{ipocts[3]}}"
+            when: st.stat.exists == true
 
-- hosts: windows
-  gather_facts: no
-  remote_user: root
-  tasks:
-          - name: ping
-            win_ping: 
+
+#- hosts: windows
+#  gather_facts: no
+#  remote_user: root
+#  tasks:
+#          - name: ping
+#            win_ping: 
